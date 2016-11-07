@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="timeline_style" >
+        <attr name="timeline_marker" format="color|reference"/>
+        <attr name="timeline_marker_size" format="dimension"/>
+        <attr name="timeline_line" format="color|reference"/>
+        <attr name="timeline_line_size" format="dimension"/>
+        <attr name="timeline_line_orientation" format="enum">
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+        <attr name="timeline_marker_in_center" format="boolean"/>
+        <attr name="timeline_line_marker_margin" format="dimension"/>
+    </declare-styleable>
+</resources>
