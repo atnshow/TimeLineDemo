@@ -1,6 +1,7 @@
 package com.ec.android.test.timelinedemo;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,30 @@ public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.Vertic
         final int viewType = TimelineView.getTimeLineViewType(position, getItemCount());
 
         holder.mTimelineView.drawLine(viewType);
+
+        holder.mTimelineView.setMarkerSize(60);
+        //
+        final Resources resources = holder.mTimelineView.getResources();
+        final Context context = holder.mTimelineView.getContext();
+        if (position == 1) {
+            holder.mTimelineView.setMarker(resources.getDrawable(R.drawable.sys_face_01));
+        } else if (position == 2) {
+            holder.mTimelineView.setMarker(resources.getDrawable(R.drawable.sys_face_02));
+        } else if (position == 3) {
+            holder.mTimelineView.setMarker(holder.mTimelineView.getResources().getDrawable(R.drawable.sys_face_03));
+        } else {
+            holder.mTimelineView.setMarker(holder.mTimelineView.getResources().getDrawable(R.drawable.timeline_marker));
+        }
+        /*
+        if (position == 1) {
+            holder.mTimelineView.setMarker(holder.mTimelineView.getResources().getDrawable(R.drawable.sys_face_01));
+        } else if (position == 2) {
+            holder.mTimelineView.setMarker(holder.mTimelineView.getResources().getDrawable(R.drawable.sys_face_02));
+        } else if (position == 3) {
+            holder.mTimelineView.setMarker(holder.mTimelineView.getResources().getDrawable(R.drawable.sys_face_03));
+        } else {
+            holder.mTimelineView.setMarker(holder.mTimelineView.getResources().getDrawable(R.drawable.timeline_marker));
+        }*/
     }
 
     @Override

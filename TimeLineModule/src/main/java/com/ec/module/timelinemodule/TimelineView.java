@@ -2,8 +2,13 @@ package com.ec.module.timelinemodule;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -173,6 +178,33 @@ public class TimelineView extends View {
         }
     }
 
+    private Drawable getCircleBitmapDrawable(Drawable drawable) {
+        if (!(drawable instanceof BitmapDrawable)) {
+            return drawable;
+        }
+
+        final Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(),
+                bitmap.getHeight());
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawCircle(bitmap.getWidth() / 2,
+                bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+        //
+        return new BitmapDrawable(getResources(), output);
+    }
+
     /**
      * 设置 marker
      *
@@ -180,6 +212,21 @@ public class TimelineView extends View {
      */
     public void setMarker(Drawable marker) {
         mMarker = marker;
+
+        initDrawable();
+    }
+
+    /**
+     * @param marker
+     * @param isCircle 是否显示为 circle，仅支持 BitmapDrawable
+     */
+    public void setMarker(Drawable marker, boolean isCircle) {
+        if (isCircle) {
+            mMarker = getCircleBitmapDrawable(marker);
+        } else {
+            mMarker = marker;
+        }
+
         initDrawable();
     }
 
